@@ -51,6 +51,7 @@ cd rick_and_morty
    ```bash
    docker-compose up --build -d
    ```
+   ⚠️ Asegurarse de tener docker encendido.
 3. **Levanta los contenedores:**
    ```bash
    docker-compose exec app composer install
