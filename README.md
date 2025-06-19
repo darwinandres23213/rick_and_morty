@@ -26,6 +26,13 @@
 
 Puedes correr el proyecto de dos formas: **con Docker** (recomendado) o **de manera local** (XAMPP, Composer, etc.).
 
+### 0. Clona el repositorio
+
+```bash
+git clone https://github.com/darwinandres23213/rick_and_morty.git
+cd rick_and_morty
+```
+
 ### 1. Ejecución con Docker 🐳
 
 > ⚠️ **Nota:** El rendimiento de la aplicación en Docker puede ser más lento que en local, especialmente en modo desarrollo, dependiendo de los recursos (CPU, RAM) que le asignes a Docker y de la configuración de tu entorno. Esto es normal en contenedores y no afecta el funcionamiento en producción.
