@@ -51,17 +51,25 @@ cd rick_and_morty
    ```bash
    docker-compose up --build -d
    ```
-3. **Genera la clave de la aplicación (APP_KEY):**
+3. **Levanta los contenedores:**
    ```bash
-   docker-compose exec app bash
-   php artisan key:generate
+   docker-compose exec app composer install
+   ```
+4. **Genera la clave de la aplicación (APP_KEY):**
+   ```bash
+   docker-compose exec app php artisan key:generate
    ```
    Esto generará la clave de cifrado necesaria para Laravel y la agregará automáticamente a tu archivo `.env`.
-4. **Ejecuta las migraciones dentro del contenedor:**
+5. **Ejecuta las migraciones dentro del contenedor:**
    ```bash
    docker-compose exec app php artisan migrate
    ```
-5. **Accede a la aplicación:**
+6. **Optimiza el rendimiento cacheando configuración y rutas:**
+   ```bash
+   docker-compose exec app php artisan config:cache
+   docker-compose exec app php artisan route:cache
+   ```
+7. **Accede a la aplicación:**
    - [http://localhost:8080/Ricky_and_Morty](http://localhost:8080/Ricky_and_Morty)
 
 > **Nota:** Si tienes MySQL local, el contenedor usará el puerto 3307 para evitar conflictos.
