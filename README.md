@@ -24,9 +24,11 @@
 
 ## 📦 Instalación y ejecución
 
-Puedes correr el proyecto de dos formas: **con Docker** (recomendado) o **de manera local** (XAMPP, Laragon, etc.).
+Puedes correr el proyecto de dos formas: **con Docker** (recomendado) o **de manera local** (XAMPP, Composer, etc.).
 
 ### 1. Ejecución con Docker 🐳
+
+> ⚠️ **Nota:** El rendimiento de la aplicación en Docker puede ser más lento que en local, especialmente en modo desarrollo, dependiendo de los recursos (CPU, RAM) que le asignes a Docker y de la configuración de tu entorno. Esto es normal en contenedores y no afecta el funcionamiento en producción.
 
 #### Requisitos previos
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
@@ -40,13 +42,19 @@ Puedes correr el proyecto de dos formas: **con Docker** (recomendado) o **de man
    ```
 2. **Levanta los contenedores:**
    ```bash
-   docker-compose up --build
+   docker-compose up --build -d
    ```
-3. **Ejecuta las migraciones dentro del contenedor:**
+3. **Genera la clave de la aplicación (APP_KEY):**
+   ```bash
+   docker-compose exec app bash
+   php artisan key:generate
+   ```
+   Esto generará la clave de cifrado necesaria para Laravel y la agregará automáticamente a tu archivo `.env`.
+4. **Ejecuta las migraciones dentro del contenedor:**
    ```bash
    docker-compose exec app php artisan migrate
    ```
-4. **Accede a la aplicación:**
+5. **Accede a la aplicación:**
    - [http://localhost:8080/Ricky_and_Morty](http://localhost:8080/Ricky_and_Morty)
 
 > **Nota:** Si tienes MySQL local, el contenedor usará el puerto 3307 para evitar conflictos.
@@ -67,21 +75,26 @@ Puedes correr el proyecto de dos formas: **con Docker** (recomendado) o **de man
    cp .env.example.local .env
    ```
 2. **Crea la base de datos** (por ejemplo, en phpMyAdmin):
-   - Nombre: `laravel`
+   - Nombre: `ricky_and_morty`
    - **Opción alternativa:** Si no deseas ejecutar las migraciones manualmente, puedes importar directamente el script `ricky_and_morty.sql` que se encuentra en la raíz del proyecto usando un gestor como XAMPP/phpMyAdmin.
 3. **Instala dependencias:**
    ```bash
    composer install
    ```
-4. **Ejecuta las migraciones:**
+4. **Genera la clave de la aplicación (APP_KEY):**
+   ```bash
+   php artisan key:generate
+   ```
+   Esto generará la clave de cifrado necesaria para Laravel y la agregará automáticamente a tu archivo `.env`.
+5. **Ejecuta las migraciones:**
    ```bash
    php artisan migrate
    ```
-5. **Levanta el servidor de desarrollo:**
+6. **Levanta el servidor de desarrollo:**
    ```bash
    php artisan serve
    ```
-6. **Accede a la aplicación:**
+7. **Accede a la aplicación:**
    - [http://127.0.0.1:8000/Ricky_and_Morty](http://127.0.0.1:8000/Ricky_and_Morty)
 
 ---
@@ -146,6 +159,14 @@ Puedes correr el proyecto de dos formas: **con Docker** (recomendado) o **de man
     ```bash
     php artisan config:clear
     ```
+
+- **¿Error: No application encryption key has been specified?**  
+  Esto ocurre si falta la clave de cifrado en tu archivo `.env` (APP_KEY). Para solucionarlo en Docker:
+  ```bash
+  docker-compose exec app bash
+  php artisan key:generate
+  ```
+  Esto generará la clave y la agregará automáticamente a tu `.env`.
 
 - **¿Conflicto de puertos con MySQL?**  
   - Docker usa el puerto 3307 para evitar conflictos con instalaciones locales.
