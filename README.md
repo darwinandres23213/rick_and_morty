@@ -105,6 +105,7 @@ cd rick_and_morty
 5. **Ejecuta las migraciones:**
    ```bash
    php artisan migrate
+   ⚠️ Asegurarse de tener encendido en xampp los servicios de apache y mysql. 
    ```
 6. **Levanta el servidor de desarrollo:**
    ```bash
